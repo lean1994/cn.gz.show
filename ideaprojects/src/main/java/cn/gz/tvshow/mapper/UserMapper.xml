@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gz.tvshow.dao.UserMapper">
+    <resultMap id="UserModel" type="cn.gz.tvshow.pojo.UserModel">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="per_name" jdbcType="VARCHAR" property="perName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="authority" jdbcType="CHAR" property="authority"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="reg_date" jdbcType="TIMESTAMP" property="regDate"/>
+        <result column="last_reg" jdbcType="TIMESTAMP" property="lastReg"/>
+        <result column="login_unm" jdbcType="INTEGER" property="loginNum" javaType="INTEGER"/>
+        <result column="aut_role" jdbcType="VARCHAR" property="autRole"/>
+        <result column="up_date" jdbcType="TIMESTAMP" property="upDate"/>
+        <result column="up_user_id" jdbcType="INTEGER" property="upUserId"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.UserModel">
+    insert into user values
+    (#{id},#{name},#{gender},#{perName},#{password},#{authority},#{state},#{telephone},#{email},#{regDate},#{lastReg},#{loginNum},#{autRole},#{upDate},#{upUserId})
+</insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from user where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="cn.gz.tvshow.pojo.UserModel">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="gender!=null and gender!=''">
+                gender=#{gender},
+            </if>
+            <if test="perName!=null and perName!=''">
+                per_name=#{perName},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="authority!=null and authority!=''">
+                authority=#{authority},
+            </if>
+            <if test="state!=null and state!=''">
+                state=#{state},
+            </if>
+            <if test="telephone!=null and telephone!=''">
+                telephone=#{telephone},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="regDate!=null">
+                reg_date=#{regDate},
+            </if>
+            <if test="lastReg!=null">
+                last_reg=#{lastReg},
+            </if>
+            <if test="loginNum!=null and loginNum!=''">
+                login_num=#{loginNum},
+            </if>
+            <if test="autRole!=null and autRole!=''">
+                aut_role=#{autRole},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="UserModel">
+        select * from user where id=#{id}
+    </select>
+    <select id="selectByUser" parameterType="java.lang.String" resultMap="UserModel">
+        select id,name,gender,per_name,password,authority,state,telephone,email,
+        reg_date,last_reg,login_num,aut_role,up_date,up_user_id
+         from user where name=#{name} and password=#{password}
+    </select>
+    <select id="selectAllUser" resultMap="UserModel">
+        select id,name,gender,per_name,password,authority,state,telephone,email,
+        reg_date,last_reg,login_num,aut_role,up_date,up_user_id
+        from user
+    </select>
+</mapper>

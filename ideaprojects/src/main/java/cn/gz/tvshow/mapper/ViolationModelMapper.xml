@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gz.tvshow.dao.ViolationModelMapper">
+    <resultMap id="ViolationModel" type="cn.gz.tvshow.pojo.ViolationModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="violation_category" jdbcType="VARCHAR" property="ViolationCategory"/>
+        <result column="violation_level" jdbcType="CHAR" property="ViolationLevel"/>
+        <result column="up_user_id" jdbcType="INTEGER" property="upUserId"/>
+        <result column="up_date" jdbcType="TIMESTAMP" property="upDate"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.ViolationModel">
+        insert into violation values (#{id},#{name},#{violationCategory},#{violationLevel},#{upUserId},#{upDate})
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from violation where id=#{id}
+    </delete>
+    <update id="updateByPrimaryKey" parameterType="cn.gz.tvshow.pojo.ViolationModel">
+        update violation
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id!=null and id!=''">
+                id=#{id},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="ViolationCategory!=null and ViolationCategory!=''">
+                violation_category=#{ViolationCategory},
+            </if>
+            <if test="ViolationLevel!=null and ViolationLevel!=''">
+                violation_level=#{ViolationLevel},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="cn.gz.tvshow.pojo.ViolationModel" resultMap="ViolationModel">
+        select * from violation
+        <trim prefix="where" prefixOverrides="and |or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="ViolationCategory!=null and ViolationCategory!=''">
+                and violation_category=#{violation_category}
+            </if>
+            <if test="ViolationLevel!=null and ViolationLevel!=''">
+                and violation_level=#{ViolationLevel}
+            </if>
+            <if test="upDate!=null">
+                and upDate=#{up_date}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and upUserId=#{up_user_id}
+            </if>
+        </trim>
+    </select>
+</mapper>

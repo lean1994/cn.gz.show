@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户注册</title>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<div id="main">
+    <table>
+        <form id="register">
+            <tr>用户名 :
+                <input type="text" id="username"/>
+            </tr>
+            <br/><br/><br/>
+            <tr>密码 :
+                <input type="password" id="password"/>
+            </tr>
+            <br/><br/><br/>
+            <tr id="sex">性别 :
+                <input name="gender" type="radio" value="男"/>男
+                <input name="gender" type="radio" value="女"/>女
+                <input name="gender" type="radio" value="不明"/>不明
+            </tr>
+            <br/><br/><br/>
+            <tr>真实姓名 :
+                <input type="text" id="realname"/>
+            </tr>
+            <br/><br/><br/>
+            <tr>联系电话 :</tr>
+            <input type="text" id="telephone"/>
+            </tr><br/><br/><br/>
+            <tr>邮箱地址 :
+                <input type="text" id="email"/>
+            </tr>
+            <br/><br/><br/>
+            <input type="button" value="注册" onclick="register()"/>
+        </form>
+    </table>
+</div>
+
+<script>
+    function register() {
+        var gender = $('input:radio[name="gender"]:checked').val();
+        $.post(
+            "users/insertUser",
+            {
+                "name": $("#username").val(),
+                "password": $("#password").val(),
+                "gender": gender,
+                "perName": $("#realname").val(),
+                "telephone": $("#telephone").val(),
+                "email": $("#email").val()
+            },
+            function (data) {
+                alert("注册成功，即将跳转登录界面")
+            }
+        )
+    }
+</script>
+</body>
+</html>

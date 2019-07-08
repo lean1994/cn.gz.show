@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gz.tvshow.dao.ShowAdvertisingModelMapper">
+    <resultMap id="ShowAdvertisingModel" type="cn.gz.tvshow.pojo.ShowAdvertisingModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="advertiser_id" jdbcType="INTEGER" property="advertiserId"/>
+        <result column="show_id" jdbcType="INTEGER" property="showId"/>
+        <result column="up_date" jdbcType="TIMESTAMP" property="upDate"/>
+        <result column="up_user_id" jdbcType="VARCHAR" property="upUserId"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.ShowAdvertisingModel">
+        insert into show_advertising values (#{id},#{advertiserId},#{showId},#{upDate},#{upUserId})
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from show_advertising where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="cn.gz.tvshow.pojo.ShowAdvertisingModel">
+        update show_advertising
+        <trim prefix="set" suffixOverrides=",">
+            <if test="advertiserId!=null and advertiserId!=''">
+                advertiser_id=#{advertiserId},
+            </if>
+            <if test="showId!=null and showId!=''">
+                show_id=#{showId},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="cn.gz.tvshow.pojo.ShowAdvertisingModel"
+            resultMap="ShowAdvertisingModel">
+        select * from show_advertising
+        <trim prefix="where" prefixOverrides="and |or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="advertiserId!=null and advertiserId!=''">
+                and advertiser_id=#{advertiserId}
+            </if>
+            <if test="showId!=null and showId!=''">
+                and show_id=#{showId}
+            </if>
+            <if test="upDate!=null">
+                and upDate=#{up_date}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and upUserId=#{up_user_id}
+            </if>
+        </trim>
+    </select>
+</mapper>

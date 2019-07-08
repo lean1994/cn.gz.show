@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gz.tvshow.dao.ShowArrivalCovterModelMapper">
+    <resultMap id="ShowArrivalCovterModel" type="cn.gz.tvshow.pojo.ShowArrivalCovterModel">
+        <result column="show_id" jdbcType="INTEGER" property="showId"/>
+        <result column="channel_id" jdbcType="INTEGER" property="channelId"/>
+        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="terminal_name" jdbcType="VARCHAR" property="terminalName"/>
+        <result column="covter_num" jdbcType="INTEGER" property="covterNum"/>
+        <result column="terminal_sum" jdbcType="INTEGER" property="terminalSum"/>
+        <result column="arrival_rate" jdbcType="DOUBLE" property="arrivalRate"/>
+        <result column="spread_terminal" jdbcType="INTEGER" property="spreadTerminal"/>
+        <result column="spread_all_tv" jdbcType="INTEGER" property="spreadAllTv"/>
+        <result column="spread_population" jdbcType="INTEGER" property="spreadPopulation"/>
+        <result column="up_date" jdbcType="TIMESTAMP" property="upDate"/>
+        <result column="up_user_id" jdbcType="INTEGER" property="upUserId"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.ShowArrivalCovterModel">
+        insert into show_arrival_covter
+        values
+        (#{showId},#{channelId},#{beginTime},#{endTime},#{terminalName},#{covterNum},#{terminalSum},#{arrivalRate},#{spreadTerminal},#{spreadAllTv},#{spreadPopulation},#{upDate},#{upUserId})
+    </insert>
+    <delete id="deleteByShowId" parameterType="java.lang.Integer">
+        delete from show_arrival_covter where show_id=#{showId}
+    </delete>
+    <update id="updateByShowId" parameterType="cn.gz.tvshow.pojo.ShowArrivalCovterModel">
+        update show_arrival_covter
+        <trim prefix="set" suffixOverrides=",">
+            <if test="channelId!=null and channelId!=''">
+                channel_id=#{channelId},
+            </if>
+            <if test="beginTime!=null and beginTime!=''">
+                begin_time=#{beginTime},
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                end_time=#{endTime},
+            </if>
+            <if test="terminalName!=null and terminalName!=''">
+                terminal_name=#{terminalName},
+            </if>
+            <if test="covterNum!=null and covterNum!=''">
+                covter_num=#{covterNum},
+            </if>
+            <if test="terminalSum!=null and terminalSum!=''">
+                terminal_sum=#{terminalSum},
+            </if>
+            <if test="arrivalRate!=null and arrivalRate!=''">
+                arrival_rate=#{arrivalRate},
+            </if>
+            <if test="spreadTerminal!=null and spreadTerminal!=''">
+                spread_terminal=#{spreadTerminal},
+            </if>
+            <if test="spreadAllTv!=null and spreadAllTv!=''">
+                spread_all_tv=#{spreadAllTv},
+            </if>
+            <if test="spreadPopulation!=null and spreadPopulation!=''">
+                spread_population=#{spreadPopulation},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+        </trim>
+        where show_id=#{showId}
+    </update>
+    <select id="select" parameterType="cn.gz.tvshow.pojo.ShowArrivalCovterModel" resultMap="ShowArrivalCovterModel">
+        select * from
+        show_arrival_covter
+        <trim prefix="where" suffixOverrides=",">
+            <if test="showId!=null and showId!=''">
+                show_id=#{showId}
+            </if>
+            <if test="channelId!=null and channelId!=''">
+                and channel_id=#{channelId}
+            </if>
+            <if test="beginTime!=null and beginTime!=''">
+                and begin_time=#{beginTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and end_time=#{endTime}
+            </if>
+            <if test="terminalName!=null and terminalName!=''">
+                and terminal_name=#{terminalName}
+            </if>
+            <if test="covterNum!=null and covterNum!=''">
+                and covter_num=#{covterNum}
+            </if>
+            <if test="terminalSum!=null and terminalSum!=''">
+                and terminal_sum=#{beginTime}
+            </if>
+            <if test="arrivalRate!=null and arrivalRate!=''">
+                and arrival_rate=#{arrivalRate}
+            </if>
+            <if test="spreadTerminal!=null and spreadTerminal!=''">
+                and spread_terminal=#{spreadTerminal}
+            </if>
+            <if test="spreadAllTv!=null and spreadAllTv!=''">
+                and spread_all_tv=#{spreadAllTv}
+            </if>
+            <if test="spreadPopulation!=null and spreadPopulation!=''">
+                and spread_population=#{spreadPopulation}
+            </if>
+            <if test="upDate!=null">
+                and up_date=#{upDate}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and up_user_id=#{upUserId}
+            </if>
+        </trim>
+    </select>
+</mapper>

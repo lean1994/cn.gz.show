@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gz.tvshow.dao.showModelMapper">
+    <resultMap id="showModel" type="cn.gz.tvshow.pojo.ShowModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="theme" jdbcType="VARCHAR" property="theme"/>
+        <result column="time" jdbcType="INTEGER" property="time"/>
+        <result column="show_character" jdbcType="VARCHAR" property="showCharacter"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="qr" jdbcType="CHAR" property="qr"/>
+        <result column="named_ad" jdbcType="VARCHAR" property="namedAd"/>
+        <result column="up_date" jdbcType="TIMESTAMP" property="upDate"/>
+        <result column="up_user_id" jdbcType="INTEGER" property="upUserId"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.ShowModel">
+    insert into program
+    values (#{id},#{name},#{theme},#{time},#{showCharacter},#{telephone},#{qr},#{namedAd},#{upDate},#{upUserId})
+</insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from  program where id=#{id}
+    </delete>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="showModel">
+        select * from program where id=#{id}
+    </select>
+    <update id="updateByPrimaryKey" parameterType="cn.gz.tvshow.pojo.ShowModel">
+        update program
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="theme!=null and theme!=''">
+                theme=#{theme},
+            </if>
+            <if test="time!=null and time!=''">
+                time=#{time},
+            </if>
+            <if test="showCharacter!=null and showCharacter!=''">
+                show_character=#{showCharacter},
+            </if>
+            <if test="telephone!=null and telephone!=''">
+                telephone=#{telephone},
+            </if>
+            <if test="qr!=null and qr!=''">
+                qr=#{qr},
+            </if>
+            <if test="namedAd!=null and namedAd!=''">
+                named_ad=#{namedAd},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+</mapper>

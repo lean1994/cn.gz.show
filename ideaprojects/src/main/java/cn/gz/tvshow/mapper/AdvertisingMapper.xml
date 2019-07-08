@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gz.tvshow.dao.AdvertisingMapper">
+    <resultMap id="AdvertisingModel" type="cn.gz.tvshow.pojo.AdvertisingModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="advertiser" property="advertiser" jdbcType="VARCHAR"/>
+        <result column="ad_time" property="adTime" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="CHAR"/>
+        <result column="ad_telephone" property="adTelephone" jdbcType="VARCHAR"/>
+        <result column="up_date" property="upDate" jdbcType="TIMESTAMP"/>
+        <result column="up_user_id" property="upUserId" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="AdvertisingModel" parameterType="java.lang.Integer">
+    select * from advertising where id=#{id}
+  </select>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.AdvertisingModel">
+        insert into advertising
+        values
+        (#{id},#{name},#{advertiser},#{adTime},#{type},#{adTelephone},#{upDate},#{upUserId})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from advertising where id=#{id}
+    </delete>
+    <select id="select" parameterType="cn.gz.tvshow.pojo.AdvertisingModel" resultMap="AdvertisingModel">
+        select * from advertising
+        <trim prefix="WHERE" prefixOverrides="and|or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="advertiser!=null and advertiser!=''">
+                and advertiser=#{advertiser}
+            </if>
+            <if test="adTime!=null and adTime!=''">
+                and adTime=#{adTime}
+            </if>
+            <if test="type!=null and type!=''">
+                and type=#{type}
+            </if>
+            <if test="adTelephone!=null and adTelephone!=''">
+                and adTelephone=#{adTelephone}
+            </if>
+            <if test="upDate!=null">
+                and upDate=#{up_date}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and upUserId=#{up_user_id}
+            </if>
+        </trim>
+    </select>
+    <update id="updateById" parameterType="cn.gz.tvshow.pojo.AdvertisingModel">
+        update advertising
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="advertiser!=null">advertiser=#{advertiser},</if>
+            <if test="adTime!=null">ad_time=#{adTime},</if>
+            <if test="type!=null">type=#{type},</if>
+            <if test="adTelephone!=null">ad_telephone=#{adTelephone},</if>
+            <if test="upDate!=null">up_date=#{upDate},</if>
+            <if test="upUserId!=null">up_user_id=#{upUserId},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+</mapper>

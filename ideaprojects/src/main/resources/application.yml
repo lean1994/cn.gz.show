@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.95.39.119:3306/gz?useTimezone=true&serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: root
+    password: 123456
+  jackson:
+    date-format: java.text.SimpleDateFormat
+    time-zone: GMT+8
+mybatis:
+  mapper-locations: cn/gz/tvshow/mapper/*.xml
+

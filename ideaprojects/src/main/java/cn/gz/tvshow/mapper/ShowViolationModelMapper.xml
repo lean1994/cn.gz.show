@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gz.tvshow.dao.ShowViolationModelMapper">
+    <resultMap id="ShowViolationModel" type="cn.gz.tvshow.pojo.ShowViolationModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="violations_id" property="violationsId" jdbcType="INTEGER"/>
+        <result column="show_id" property="showId" jdbcType="INTEGER"/>
+        <result column="up_user_id" property="upUserId" jdbcType="INTEGER"/>
+        <result column="up_date" property="upDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.ShowViolationModel">
+        insert into show_violation
+        values (#{id},#{violationsId},#{showId},#{upUserId},#{upDate})
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from show_violation where id=#{id}
+    </delete>
+    <update id="updateByPrimaryKey" parameterType="cn.gz.tvshow.pojo.ShowViolationModel">
+        update show_violation
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id!=null and id!=''">
+                id=#{id},
+            </if>
+            <if test="violationsId!=null and violationsId!=''">
+                violations_id=#{violationsId},
+            </if>
+            <if test="showId!=null and showId!=''">
+                show_id=#{showId},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+    <select id="select" parameterType="cn.gz.tvshow.pojo.ShowViolationModel" resultMap="ShowViolationModel">
+        select * from show_violation
+        <trim prefix="WHERE" prefixOverrides="and|or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="violationsId!=null and violationsId!=''">
+                and violations_id=#{violationsId}
+            </if>
+            <if test="showId!=null and showId!=''">
+                and show_id=#{showId}
+            </if>
+            <if test="upDate!=null">
+                and upDate=#{up_date}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and upUserId=#{up_user_id}
+            </if>
+        </trim>
+    </select>
+</mapper>

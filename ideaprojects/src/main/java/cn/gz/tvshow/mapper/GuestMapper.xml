@@ -1,0 +1,58 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gz.tvshow.dao.GuestMapper">
+    <resultMap id="GuestModel" type="cn.gz.tvshow.pojo.GuestModel">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="showId" column="show_id"/>
+        <result property="details" column="details"/>
+        <result property="upDate" column="up_date"/>
+        <result property="upUserId" column="up_user_id"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.GuestModel">
+        insert into guest
+        values
+        (#{id},#{name},#{gender},#{details},#{showId},#{upDate},#{upUserId})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from guest where id=#{id}
+    </delete>
+    <select id="select" parameterType="cn.gz.tvshow.pojo.GuestModel" resultMap="GuestModel">
+        select * from guest
+        <trim prefix="WHERE" prefixOverrides="and|or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="gender!=null and gender!=''">
+                and gender=#{gender}
+            </if>
+            <if test="details!=null and gender!=''">
+                and details=#{details}
+            </if>
+            <if test="showId!=null and showId!=''">
+                and showId=#{show_id}
+            </if>
+            <if test="upDate!=null">
+                and upDate=#{upDate}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and upUserId=#{upUserId}
+            </if>
+        </trim>
+    </select>
+    <update id="updateById" parameterType="cn.gz.tvshow.pojo.GuestModel">
+        update guest
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="details!=null">details=#{details},</if>
+            <if test="showId!=null">show_id=#{showId},</if>
+            <if test="upDate!=null">up_date=#{upDate},</if>
+            <if test="upUserId!=null">up_user_id=#{upUserId},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+</mapper>

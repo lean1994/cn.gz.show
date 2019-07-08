@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="dist/bootstrap-table.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="dist/bootstrap-table.js"></script>
+    <style>
+        .modal-dialog {
+            pointer-events: auto;
+        }
+    </style>
+    <script>
+        $(function () {
+            //初始化Table
+            var usertable = new TableInit();
+            usertable.Init();
+        });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#userTable').bootstrapTable({
+                    url: 'users/selectAllUser',//请求后台的url
+                    method: 'post',//请求方式
+                    contentType: "application/x-www-form-urlencoded",
+                    toolbar: '#toolbar',//工具按钮用哪个容器
+                    striped: true,//是否显示行间隔色
+                    cache: false,
+                    sortable: true,//是否启用排序
+                    sortOrder: 'asc',//排序方式
+                    clickToSelect: true,//是否启用点击选中行
+                    uniqueId: 'id',//每一行的唯一标识，一般为主键列
+                    columns: [{
+                        field: 'id',
+                        title: 'ID'
+                    }, {
+                        field: 'name',
+                        title: '用户名'
+                    }, {
+                        field: 'gender',
+                        title: '性别'
+                    }, {
+                        field: 'perName',
+                        title: '姓名'
+                    }, {
+                        field: 'password',
+                        title: '密码'
+                    }, {
+                        field: 'authority',
+                        title: '权限'
+                    }, {
+                        field: 'telephone',
+                        title: '电话'
+                    }, {
+                        field: 'state',
+                        title: '状态'
+                    }, {
+                        field: 'email',
+                        title: 'Email'
+                    }, {
+                        field: 'regDate',
+                        title: '注册日期'
+                    }, {
+                        field: 'lastReg',
+                        title: '最近登录'
+                    }, {
+                        field: 'loginNum',
+                        title: '登录次数'
+                    }, {
+                        field: 'autRole',
+                        title: '授权角色'
+                    }, {
+                        field: 'upDate',
+                        title: '更新日期'
+                    }, {
+                        field: 'upUserId',
+                        title: '更新用户'
+                    }, {
+                        field: 'Button',
+                        title: '操作',
+                        events: "operateEvents",
+                        formatter: addfunction,
+                    }]
+                });
+            };
+            return oTableInit;
+        };
+    </script>
+    <script>
+        $('#myModal').modal();
+
+        function addfunction(value, row, index) {
+            return [
+                '<button id = "compile" type="button" class = "RoleOfedit btn btn-primary  btn-sm" data-target="#myModal" data-toggle="#myModal">编辑</button>',
+            ].join('');
+        }
+
+        window.operateEvents = {
+            "click #compile": function (e, value, row, index) {
+                $('#myModal').modal();
+                $('.modal-body input[name = uid]').val(row.id);
+                $('.modal-body input[name = name]').val(row.name);
+                $('.modal-body input[name = ugender]').val(row.gender);
+                $('.modal-body input[name = password]').val(row.password);
+                $('.modal-body input[name = pername]').val(row.perName);
+                $('.modal-body input[name = state]').val(row.state);
+                $('.modal-body input[name = authority]').val(row.authority);
+                $('.modal-body input[name = email]').val(row.email);
+                $('.modal-body input[name = telephone]').val(row.telephone);
+
+            }
+        }
+    </script>
+    <script>
+
+    </script>
+    <script>
+        function upuser() {
+            $.post(
+                "users/upDateUser",
+                {
+                    "id": $("#uid").val(),
+                    "name": $("#name").val(),
+                    "perName": $("#pername").val(),
+                    "password": $("#password").val(),
+                    "authority": $("#authority").val(),
+                    "state": $("#state").val(),
+                    "telephone": $("#telephone").val(),
+                    "email": $("#email").val()
+                },
+                function (data) {
+                    alert("修改成功");
+                    window.location.reload();
+                }
+            )
+        }
+
+        function deleteuser() {
+            var warring = confirm("确定删除吗");
+            if (!warring) {
+                return
+            }
+            $.post(
+                "users/deleteUserById",
+                {
+                    "id": $("#uid").val(),
+                },
+                function (data) {
+                    alert("删除成功");
+                    window.location.reload();
+                }
+            )
+        }
+    </script>
+</head>
+<body>
+<table data-toggle="user_table" id="userTable" class="table table-hover">
+</table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id='userfrom' class="bs-example bs-example-form" role="form">
+                    <div class="form-group">
+                        <label for="uid">ID</label>
+                        <input type="text" name="uid" id="uid" class="form-control" readonly="value">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">用户名</label>
+                        <input type="text" name="name" id="name" class="form-control" readonly="value">
+                    </div>
+                    <div class="form-group">
+                        <label for="ugender">性别</label>
+                        <input type="text" name="ugender" id="ugender" class="form-control" readonly="value">
+                    </div>
+                    <div class="form-group">
+                        <label for="pername">姓名</label>
+                        <input type="text" name="pername" id="pername" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="text" name="password" id="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="authority">权限</label>
+                        <input type="text" name="authority" id="authority" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">状态</label>
+                        <input type="text" name="state" id="state" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">联系电话</label>
+                        <input type="text" name="telephone" id="telephone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-info">
+                <input type="hidden" id="ID" name="ID"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class=""
+                                                                                         aria-hidden="true"></span>关闭
+                </button>
+                <button type="button" class="btn btn-warning" id="btn_delete" onclick="deleteuser()">删除</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" onclick="upuser()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

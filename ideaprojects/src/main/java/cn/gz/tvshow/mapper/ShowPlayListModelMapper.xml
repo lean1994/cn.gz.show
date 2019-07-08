@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gz.tvshow.dao.ShowPlayListModelMapper">
+    <resultMap id="ShowPlayListModel" type="cn.gz.tvshow.pojo.ShowPlayListModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="channel_id" property="channelId" jdbcType="INTEGER"/>
+        <result column="show_id" property="showId" jdbcType="INTEGER"/>
+        <result column="begin_time" property="beginTime" jdbcType="TIME"/>
+        <result column="end_time" property="endTime" jdbcType="TIME"/>
+        <result column="up_user_id" property="upUserId" jdbcType="INTEGER"/>
+        <result column="up_date" property="upDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.ShowPlayListModel">
+        insert into show_playlist
+        values (#{id},#{channelId},#{showId},#{beginTime},#{endTime},#{upUserId},#{upDate})
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from show_playlist where id=#{id}
+    </delete>
+    <update id="updateByPrimaryKey" parameterType="cn.gz.tvshow.pojo.ShowPlayListModel">
+        update show_playlist
+        <trim prefix="set" suffixOverrides=",">
+            <if test="channelId!=null and channelId!=''">
+                channel_id=#{channelId},
+            </if>
+            <if test="showId!=null and showId!=''">
+                show_id=#{showId},
+            </if>
+            <if test="beginTime!=null and beginTime!=''">
+                begin_time=#{beginTime},
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                end_time=#{endTime},
+            </if>
+            <if test="upDate!=null">
+                up_date=#{upDate},
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                up_user_id=#{upUserId},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+    <select id="select" parameterType="cn.gz.tvshow.pojo.ShowPlayListModel" resultMap="ShowPlayListModel">
+        select * from
+        show_playlist
+        <trim prefix="WHERE" prefixOverrides="and|or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="channelId!=null and channelId!=''">
+                and channel_id=#{channelId}
+            </if>
+            <if test="showId!=null and showId!=''">
+                and show_id=#{showId}
+            </if>
+            <if test="beginTime!=null and beginTime!=''">
+                and begin_time=#{beginTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and end_time=#{endTime}
+            </if>
+            <if test="upDate!=null">
+                and up_date=#{upDate}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and up_user_id=#{upUserId}
+            </if>
+        </trim>
+    </select>
+</mapper>

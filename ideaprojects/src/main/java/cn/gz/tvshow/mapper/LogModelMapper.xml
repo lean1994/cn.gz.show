@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gz.tvshow.dao.LogModelMapper">
+    <resultMap id="LogModelMapper" type="cn.gz.tvshow.pojo.LogModel">
+        <id column="id" property="id"/>
+        <result column="table_name" property="tableName"/>
+        <result column="list" property="list"/>
+        <result column="data_id" property="dateId"/>
+        <result column="old_value" property="oldValue"/>
+        <result column="new_value" property="newValue"/>
+        <result column="up_user_id" property="upUserId"/>
+        <result column="up_date" property="upDate"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.gz.tvshow.pojo.LogModel">
+        insert into log
+        values
+        (#{id},#{tableName},#{list},#{dateId},#{oldValue},#{newValue},#{upUserId},#{upDate},#{remarks})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from log where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="cn.gz.tvshow.pojo.LogModel">
+        update log
+        <trim prefix="set" suffixOverrides=",">
+            <if test="tableName!=null">
+                table_name=#{tableName},
+            </if>
+            <if test="list!=null">list=#{list},</if>
+            <if test="dateId!=null">data_id=#{dateId},</if>
+            <if test="oldValue!=null">old_value=#{oldValue},</if>
+            <if test="newValue!=null">new_value=#{newValue},</if>
+            <if test="upDate!=null">up_date=#{upDate},</if>
+            <if test="upUserId!=null">up_user_id=#{upUserId},</if>
+            <if test="remarks!=null">remarks=#{remarks}</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+    <select id="select" parameterType="cn.gz.tvshow.pojo.LogModel" resultMap="LogModelMapper">
+        select * from log
+        <trim prefix="WHERE" prefixOverrides="and|or">
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+            <if test="tableName!=null and tableName!=''">
+                and table_name=#{tableName}
+            </if>
+            <if test="list!=null and list!=''">
+                and list=#{list}
+            </if>
+            <if test="dateId!=null and dateId!=''">
+                and date_id=#{dateId}
+            </if>
+            <if test="oldValue!=null and oldValue!=''">
+                and old_value=#{oldValue}
+            </if>
+            <if test="newValue!=null and newValue!=''">
+                and new_value=#{newValue}
+            </if>
+            <if test="upDate!=null">
+                and upDate=#{up_date}
+            </if>
+            <if test="upUserId!=null and upUserId!=''">
+                and upUserId=#{up_user_id}
+            </if>
+            <if test="remarks!=null and remarks!=''">
+                and remarks=#{remarks}
+            </if>
+        </trim>
+    </select>
+</mapper>
