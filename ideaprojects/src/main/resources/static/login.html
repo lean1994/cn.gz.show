@@ -2,158 +2,214 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery.js"></script>
-
-    <script src="js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <title>首页</title>
+    <title>登录</title>
     <style type="text/css">
-        .logo {
-            width: 150px;
+        body{
+
+            background: powderblue;
+            background-size:100% 450px ;
+            			}
+
+        .login-wrap{
+            position: absolute;
+            width:320px;
+            height: 300px;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            left: 40%;
+            top: 30%;
+            background: powderblue;
+        }
+
+        .login-wrap h3{
+            color:#fff;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .name,.code{
+            border:1px solid #fff;
+            width:230px;
             height: 40px;
-            position: absolute;
-            top: 10%;
-            left: 3%;
+            margin-left: 25px;
+            margin-bottom: 20px;
+            padding-left: 40px;
         }
 
-        .row {
-            background: #DCDCDC;
-            width: 270px;
-            height: 1000px;
-            text-align: center;
-            position: absolute;
-            top: 51px;
+        .name{
+            background: url("人.png") no-repeat left;
+            background-size: 9%;
+            background-position-x:12px;
         }
 
-        .span8 {
-            text-align: center;
-            position: absolute;
-            top: 30px;
-            width: 270px;
-            left: 2px;
+        .code{
+            background: url("锁.png") no-repeat left;
+            background-size: 9%;
+            background-position-x:12px;
         }
 
-        .a {
-            position: absolute;
-            left: 270px;
-            top: 30px;
+        .btn input{
+            height: 40px;
+            width: 120px;
+            float: left;
+            margin-right: 25px;
+            border:none;
+            color:#fff;
+            font-size: 16px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
         }
 
-        .
+        input:active{
+            border-color:#147a62
+        }
+
+        .submit{
+            background: #ea8c37;
+            margin-left: 25px;
+        }
+
+        .reset{
+            background: #bbb;
+        }
+
+        .zc{
+            float: right;
+            position: absolute;
+            top: 90%;
+            right: 5%;
+            background-color: powderblue;
+            border:none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /**错误信息提醒**/
+        .msg{
+            color: #ea8c37;
+            font-size: 14px;
+            padding-left: 40px;
+            padding-top: 10px;
+            clear: both;
+            font-weight: bold;
+        }
 
     </style>
-    <script>
-        $(document).ready(function () {
-            $('ul.nav > li').click(function (e) {
-                //e.preventDefault();    加上这句则导航的<a>标签会失效
-                $('ul.nav > li').removeClass('active');
-                $(this).addClass('active');
-            });
-        });
-    </script>
-    <script>
-        function showAtRight(url) {
-            var xmlHttp;
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
-            if (window.XMLHttpRequest) {
-                // code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlHttp = new XMLHttpRequest();    //创建 XMLHttpRequest对象
-            } else {
-                // code for IE6, IE5
-                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-
-            xmlHttp.onreadystatechange = function () {
-                //onreadystatechange — 当readystate变化时调用后面的方法
-
-                if (xmlHttp.readyState == 4) {
-                    //xmlHttp.readyState == 4    ——    finished downloading response
-
-                    if (xmlHttp.status == 200) {
-                        //xmlHttp.status == 200        ——    服务器反馈正常
-
-                        document.getElementById("content").innerHTML = xmlHttp.responseText;    //重设页面中id="content"的div里的内容
-                        executeScript(xmlHttp.responseText);    //执行从服务器返回的页面内容里包含的JavaScript函数
-                    }
-                    //错误状态处理
-                    else if (xmlHttp.status == 404) {
-                        alert("出错了☹   （错误代码：404 Not Found），……！");
-                        /* 对404的处理 */
-                        return;
-                    } else if (xmlHttp.status == 403) {
-                        alert("出错了☹   （错误代码：403 Forbidden），……");
-                        /* 对403的处理  */
-                        return;
-                    } else {
-                        alert("出错了☹   （错误代码：" + request.status + "），……");
-                        /* 对出现了其他错误代码所示错误的处理   */
-                        return;
-                    }
-                }
-
-            }
-
-            //把请求发送到服务器上的指定文件（url指向的文件）进行处理
-            xmlHttp.open("GET", url, true);        //true表示异步处理
-            xmlHttp.send();
-        }
-    </script>
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <img class="logo" src="gzlog.png"/>
+<img src="\img\gzlog.png" style="width: 30%; position: absolute;top: 5%; left: 5%;">
+<div class="login-wrap">
+    <form id="user_login" action="">
+        <h3>登 录</h3>
+        <input class="name" name="" id="accountName" type="text" placeholder="请输入用户名">
+        <input class="code" name="password" id="password" type="password" placeholder="请输入密码">
+        <div class="btn">
+            <input type="button" id="submit" class="submit" value="登录" onclick="login()">
+            <input type="reset" id="reset" class="reset" value="重置" >
         </div>
-        <div>
-            <ul class="nav navbar-nav" style="float: right;">
-                <li><a href="a.html">登录</a></li>
-                <li><a href="login.html">退出登录</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="row">
-    <div class="span8">
-        <ul class="nav nav-tabs nav-stacked">
-            <li class="active">
-                <a href="#" style="background: #428bca; color: white;">首页</a></li>
-            <li class="user"><a href="#" onclick="showAtRight('user.html')">用户管理</a></li>
-            <li class="region"><a href="#">地区管理</a></li>
-            <li class="channel"><a href="#">频道管理</a></li>
-            <li class="show"><a href="#">节目管理</a></li>
-            <li class="adv"><a href="#">广告管理</a></li>
-            <li class="ill"><a href="#">违规管理</a></li>
-            <li class="log"><a href="#">日志管理</a></li>
-            <li class="showplaylist"><a href="">节目播出明细</a></li>
-            <li class="showavg"><a href="">各央卫视节目达到及覆盖情况</a></li>
-            <li class="showlist"><a href="">各卫视监播明细</a></li>
-            <li class="channelshow"><a href="">各省栏目明细</a></li>
-            <li class="showadv"><a href="">栏目插播食品药品广告明细</a></li>
-            <li class="med"><a href="">中西医期数占比情况</a></li>
-            <li class="showtime"><a href="">播出栏目时间段分布</a></li>
-        </ul>
-    </div>
-</div>
-<div class="a">
-    <h1 class="page-header">&nbsp;控制台
-        <small>&nbsp;&nbsp;&nbsp;欢迎使用电视节目数据监控后台管理系统&emsp;&emsp;&emsp;</small>
-        <small id="datetime" style="color: #000000; font-size: 15px;">
-            <script id="datetime">
-                setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
-            </script>
-        </small>
-    </h1>
+        <input type="button" id="zc" class="zc" value="注册" onclick="register()">
+        <div id="CheckMsg" class="msg"></div>
+    </form>
 </div>
 
-<!-- 载入左侧菜单指向的jsp（或html等）页面内容 -->
+<script>
 
-<div id="content" style="position: absolute;top: 130px;left: 280px; width: 100%; height: 100%;">
+    //验证表单是否为空，若为空则将焦点聚焦在input表单上，否则表单通过，登录成功
+  /*  function check(form){
+        var accountName = $("#accountName"),$password = $("#password");
+        var accountName = accountName.val(),password = $password.val();
+        if(!accountName || accountName == ""){
+            showMsg("请输入用户名");
+            form.accountName.focus ();
+            return false;
+        }
+        if(!password || password == ""){
+            showMsg("请输入密码");
+            form.password.focus ();
+            return false;
+        }
 
-</div>
+        //这里为用ajax获取用户信息并进行验证，如果账户密码不匹配则登录失败，如不需要验证用户信息，这段可不写
+        $.ajax({ url : 'users/userLogin',// 获取自己系统后台用户信息接口
+            data :{"password":password,"name":accountName},
+            type : "GET",
+            dataType: "json",
+            success : function(data) {
+                if (data){
+                    if (data.code == "200") { //判断返回值，这里根据的业务内容可做调整
+                        setTimeout(function () {//做延时以便显示登录状态值
+                            showMsg("正在登录中...");
+                            console.log(data);
+                            window.location.href = "index.html";//指向登录的页面地址
+                        },100)
+                    } else {
+                        showMsg(data.message);//显示登录失败的原因
+                        return false;
+                    }
+                }
+            },
+            error : function(data){
+                showMsg(data.message); } }); }
+
+
+    //错误信息提醒
+    function showMsg(msg){
+        $("#CheckMsg").text(msg);
+    }*/
+  function login(){
+      var accountName = $("#accountName"),$password = $("#password");
+      var accountName = accountName.val(),password = $password.val();
+      if(!accountName || accountName == ""){
+          showMsg("请输入用户名");
+          form.accountName.focus ();
+          return false;
+      }
+      if(!password || password == ""){
+          showMsg("请输入密码");
+          form.password.focus ();
+          return false;
+      }
+      $.post(
+          'users/userLogin',
+          {
+              "name":$("#accountName").val(),
+              "password":$("#password").val()
+          },
+          function data() {
+             window.location.href="index.html"
+          }
+      )
+  }
+
+
+
+    //监听回车键提交
+    $(function(){
+        document.onkeydown=keyDownSearch;
+        function keyDownSearch(e) {
+            // 兼容FF和IE和Opera
+            var theEvent = e || window.event;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13) {
+                $('#submit').click();//具体处理函数
+                return false; }
+            return true; } });
+
+    function register(){
+        window.location.href="index.html";
+    }
+</script>
+
+
+
+
+
+
 </body>
 </html>
